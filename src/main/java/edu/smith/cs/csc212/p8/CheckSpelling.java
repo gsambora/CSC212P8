@@ -28,7 +28,11 @@ public class CheckSpelling {
 		System.out.println("Loaded " + words.size() + " entries in " + time +" seconds.");
 		return words;
 	}
-	
+	/**
+	 * Read all lines from a project gutenberg book, using wordsplitter to get rid of punctuation
+	 * @param filepath - path to the book
+	 * @return a list of words 
+	 */
 	public static List<String> loadBook(String filepath) {
 		long start = System.nanoTime();
 		List<String> words;
@@ -47,12 +51,18 @@ public class CheckSpelling {
 		return splitwords;
 	}
 
-	
+	/**
+	 * Create a data set of misspelled and correctly spelled words
+	 * @param yesWords - The words that need to be mixed
+	 * @param numSamples - The total number of words that should be mixed
+	 * @param fractionYes - The fraction of words that should stay correctly spelled
+	 * @return A list of both misspelled and correctly spelled words
+	 */
 	public static List<String> createMixedDataset( List<String> yesWords, int numSamples, double fractionYes ) {
 		double numFake = numSamples * fractionYes; 
 		int i = 0; 
 		List<String> mixedData = new ArrayList<>();
-		
+		// Until we have the desired number of fake words, keep creating fake words by adding xyzzz to the end of each
 		for ( String w : yesWords ) {
 			if ( i < numFake ) { 
 				mixedData.add(w.concat("xyzzz"));
@@ -138,7 +148,7 @@ public class CheckSpelling {
 		
 		
 		// --- Create a dataset of mixed hits and misses:
-		/*for (int j=0; j<2; j++) {
+		for (int j=0; j<2; j++) {
 			System.out.println("Warm-up, j="+j);
 			for (int i=0; i<=10; i++) {
 				double fraction = i / 10.0;
@@ -151,8 +161,9 @@ public class CheckSpelling {
 				timeLookup(hitsAndMisses, trie);
 				timeLookup(hitsAndMisses, hm100k);
 			}
-		}*/
+		}
 		
+		//Create data structures for the words in the gutenberg book
 		TreeSet<String> treeOfBookWords = new TreeSet<>(listOfBookWords);
 		HashSet<String> hashOfBookWords = new HashSet<>(listOfBookWords);
 		

@@ -50,19 +50,29 @@ public class SortedStringListSet extends AbstractSet<String> {
 	 * @return the index found, OR negative if not found.
 	 */
 	private int binarySearch(String query, int start, int end) {
+		//While we are still looking at a list with at least 1 elements, keep looking
 		while ( start <= end ) {
+			// Get the index of the middle value
 			int mid = start + ((end-start)/2);
+			// Our guess for what the query is
 			String guess = data.get(mid);
 			
+			// If the guess comes before the query, check the second half of the list instead
 			if ( guess.compareTo(query) < 0 ) {
 				start = mid + 1;
+				
+			// If the guess comes after the query, check the first half of the list
 			} else if ( guess.compareTo(query) > 0) {
 				end = mid - 1;
 			}
+			
+			// If the guess is correct, return the index
 			else {
+				
 				return mid;
 			}
 		}
+		// If we didn't get anything, return -1
 		return -1;
 	}
 

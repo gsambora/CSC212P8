@@ -91,7 +91,7 @@ public class LLHash extends AbstractSet<String> {
 	}
 	
 	/**
-	 * TODO, count all the collisions.
+	 * Count collisions by increasing the count when a bucket has more than one value
 	 * @return the number of buckets with more than one value.
 	 */
 	public int countCollisions() {
@@ -105,7 +105,7 @@ public class LLHash extends AbstractSet<String> {
 	}
 
 	/**
-	 * TODO, count all the buckets with a value.
+	 * For each bucket, if it isn't empty increase the count
 	 * @return the number of buckets with any value.
 	 */
 	public int countUsedBuckets() {
