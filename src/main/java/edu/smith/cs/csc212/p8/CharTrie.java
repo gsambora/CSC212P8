@@ -120,6 +120,13 @@ public class CharTrie extends AbstractSet<String> {
 		 */
 		public int countNodes() {
 			int count = 1;
+			
+			for ( Node link : this.links ) {
+				if ( link != null ) {
+					count += link.countNodes();
+				}
+			}
+				  
 			// loop over links
 			// if they're not null
 			// count them, too
@@ -153,3 +160,4 @@ public class CharTrie extends AbstractSet<String> {
 		return size;
 	}
 }
+
